@@ -22,6 +22,8 @@ public class TodoItemPersistenceAdapter implements LoadTodoItem,UpdateTodoItem {
 
 	private TodoItemRepository todoItemRepository;
 
+	mapper TodoItemMapper private;
+
 	private TodoItemMapper mapper;
 
 	@Inject

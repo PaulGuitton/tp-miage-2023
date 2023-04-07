@@ -22,22 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class TodoListController {
 
 	private static final String LATE = "[LATE!]";
-	private TodoItemRepository todoItemRepository;
 
+	private final TodoItemRepository todoItemRepository;
+
+	@Autowired
 	public TodoListController(TodoItemRepository todoItemRepository) {
-		super();
 		this.todoItemRepository = todoItemRepository;
-	}
-	
-	public TodoListController() {
-		super();		
 	}
 
 	@PostMapping("/todos")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void createTodoItem(@RequestBody TodoItem todoItem) {
-		// Code à compléter
-		// ...
+		todoItemRepository.save(todoItem);
 	}
 
 	@GetMapping("/todos")
@@ -45,16 +41,10 @@ public class TodoListController {
 		return this.todoItemRepository.findAll().stream()
 				.map(item -> new TodoItem(item.getId(), item.getTime(), finalContent(item)))
 				.collect(Collectors.toList());
-
 	}
 
-	/**
-	 * RG 1 : si l'item a plus de 24h, ajouter dans le contenu une note "[LATE!]"
-	 * 
-	 * @return liste des items
-	 */
 	private String finalContent(TodoItem item) {
-		return (Instant.now().isAfter(item.getTime().plus(1, ChronoUnit.DAYS))) ? 
+		return (Instant.now().isAfter(item.getTime().plus(1, ChronoUnit.DAYS))) ?
 				LATE + item.getContent()
 				: item.getContent();
 	}

@@ -35,13 +35,11 @@ public class TodoListController {
 	public List<TodoItem> getAllTodoItems() {
 		return this.getTodoItemsQuery.getAllTodoItems();
 	}
-	
-	
+
 	// Endpoint de type POST vers "/todos"
 	// A compléter
 	public void ajouterItem(@RequestBody TodoItem item) {
-		// A compléter		
+		mappedTodoItem = this.getAllTodoItems();
 	}
-	
 	
 }
